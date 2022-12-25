@@ -1,13 +1,15 @@
-package com.example.splashscreenactivity;
+package com.example.splashscreenactivity.views.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.splashscreenactivity.R;
 import com.example.splashscreenactivity.controller.FirebaseAuth;
 import com.example.splashscreenactivity.models.Customer;
 import com.google.firebase.FirebaseException;
@@ -40,17 +42,25 @@ public class PhoneNumberActivity extends AppCompatActivity{
                     customer,
                     PhoneNumberActivity.this,
                     new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                @Override
-                public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                    //main activity
 
-                    Toast.makeText(PhoneNumberActivity.this, "Successfully detected code", Toast.LENGTH_SHORT).show();
-                }
+                        @Override
+                        public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                            super.onCodeSent(s, forceResendingToken);
+                            Intent intent=new Intent(getApplicationContext(),verifyOTP.class);
+                            intent.putExtra("backEndOTP",s);
+                            intent.putExtra("phoneNumber",customer);
+                            startActivity(intent);
+                        }
 
-                @Override
-                public void onVerificationFailed(@NonNull FirebaseException e) {
-                    Toast.makeText(PhoneNumberActivity.this, "error in verification: "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+                        @Override
+                        public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                            //main activity
+                            Toast.makeText(PhoneNumberActivity.this, "Successfully detected code", Toast.LENGTH_SHORT).show();
+                        }
+                        @Override
+                        public void onVerificationFailed(@NonNull FirebaseException e) {
+                            Toast.makeText(PhoneNumberActivity.this, "error in verification: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
             });
         }
         else Toast.makeText(this, "write a valid number", Toast.LENGTH_SHORT).show();
@@ -60,10 +70,11 @@ public class PhoneNumberActivity extends AppCompatActivity{
     private boolean phoneIsValid(String phoneNumber) {
     if (phoneNumber.isEmpty())
         return false;
-    if (phoneNumber.length()>10)
+    if (phoneNumber.length()>13)
         return false;
     return true;
     }
+
 
     private void initViews() {
         phone=findViewById(R.id.editTextPhone);

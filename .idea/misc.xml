@@ -5,8 +5,15 @@
       <map>
         <entry key="..\:/Users/USER/AndroidStudioProjects/SplashscreenActivity/app/src/main/res/drawable/btn_background.xml" value="0.1455" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/SplashscreenActivity/app/src/main/res/drawable/edit_text_background.xml" value="0.1455" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/SplashscreenActivity/app/src/main/res/layout/activity_main.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/SplashscreenActivity/app/src/main/res/layout/activity_main_page.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/SplashscreenActivity/app/src/main/res/layout/activity_my_cart.xml" value="0.2604166666666667" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/SplashscreenActivity/app/src/main/res/layout/activity_phone_number.xml" value="0.264" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/SplashscreenActivity/app/src/main/res/layout/activity_verify_otp.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/SplashscreenActivity/app/src/main/res/layout/cart_product.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/SplashscreenActivity/app/src/main/res/layout/loading_dialog.xml" value="0.22530996152201796" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/SplashscreenActivity/app/src/main/res/layout/product_selector.xml" value="0.22445489525438223" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/SplashscreenActivity/app/src/main/res/layout/store_item.xml" value="0.27447916666666666" />
       </map>
     </option>
   </component>

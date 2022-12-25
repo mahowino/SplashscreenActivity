@@ -5,6 +5,10 @@ import java.util.List;
 public class Cart {
     List<GoodType> cartGoods;
 
+    public Cart(List<GoodType> cartGoods) {
+        this.cartGoods = cartGoods;
+    }
+
     public List<GoodType> getCartGoods() {
         return cartGoods;
     }

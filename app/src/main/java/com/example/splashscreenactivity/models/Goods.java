@@ -1,7 +1,7 @@
 package com.example.splashscreenactivity.models;
 
 public class Goods {
-    String goodId,goodName,goodDescription;
+    String goodId,good_name,good_description;
 
 
     public String getGoodId() {
@@ -13,18 +13,18 @@ public class Goods {
     }
 
     public String getGoodName() {
-        return goodName;
+        return good_name;
     }
 
     public void setGoodName(String goodName) {
-        this.goodName = goodName;
+        this.good_name = goodName;
     }
 
     public String getGoodDescription() {
-        return goodDescription;
+        return good_description;
     }
 
     public void setGoodDescription(String goodDescription) {
-        this.goodDescription = goodDescription;
+        this.good_description = goodDescription;
     }
 }

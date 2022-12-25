@@ -8,6 +8,8 @@ import java.util.List;
 
 public class CartHelper {
      Cart cart;
+    private double RATE=0.05;
+
     public CartHelper(Cart cart){
         this.cart =cart;
     }
@@ -43,9 +45,15 @@ public class CartHelper {
         double price=0.00;
         List<GoodType> goodsInCart=cart.getCartGoods();
         for (GoodType goodType:goodsInCart){
-            price+=goodType.getGoodRetailPrice();
+            price+=goodType.getGoodRetailPrice()*goodType.getNumberInCart();
         }
         return price;
     }
 
+    public double getServiceCharge(){
+        return calculateCartValue()*RATE;
+    }
+    public double getTotalCharge(){
+        return getServiceCharge()+calculateCartValue();
+    }
 }

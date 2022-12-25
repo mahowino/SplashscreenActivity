@@ -27,19 +27,19 @@ public class FirebaseAuth {
         PhoneAuthProvider.verifyPhoneNumber(options);
     }
 
-    public  void confirmOTP(String verificationId,String code,Activity activity,SuccessFailCallback callback){
+    public static void confirmOTP(String verificationId,String code,Activity activity,SuccessFailCallback callback){
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
         signInWithPhoneAuthCredential(activity,credential,callback);
 
     }
-    private void signInWithPhoneAuthCredential(Activity activity,PhoneAuthCredential credential,SuccessFailCallback callback) {
+    private static void signInWithPhoneAuthCredential(Activity activity,PhoneAuthCredential credential,SuccessFailCallback callback) {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(activity, task -> {
                     if (task.isSuccessful()) {
                     callback.onSuccess();
                     } else {
                         // Sign in failed, display a message and update the UI
-                        Log.w(TAG, "signInWithCredential:failure", task.getException());
+                       // Log.w(TAG, "signInWithCredential:failure", task.getException());
                         if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                             // The verification code entered was invalid
                         }

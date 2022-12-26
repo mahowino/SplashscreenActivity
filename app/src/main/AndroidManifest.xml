@@ -14,6 +14,18 @@
         android:theme="@style/Theme.SplashscreenActivity"
         tools:targetApi="31">
         <activity
+            android:name=".FinalActivitySender"
+            android:exported="false" />
+        <activity
+            android:name=".views.activities.SendingSuccess"
+            android:exported="false" />
+        <activity
+            android:name=".views.activities.SendGoodsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.activities.payment_success_screen"
+            android:exported="false" />
+        <activity
             android:name=".views.activities.MyCart"
             android:exported="false" />
         <activity

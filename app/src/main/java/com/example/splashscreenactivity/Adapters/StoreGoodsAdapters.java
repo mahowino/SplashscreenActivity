@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -54,7 +55,7 @@ public class StoreGoodsAdapters extends RecyclerView.Adapter<StoreGoodsAdapters.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView productName,productDescription;
-        Button addToCart;
+        ImageView addToCart;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             productName=itemView.findViewById(R.id.txtGoodName);

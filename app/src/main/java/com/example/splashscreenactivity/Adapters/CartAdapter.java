@@ -47,8 +47,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         GoodType good=cart.getCartGoods().get(position);
 
         holder.productNumber.setText(String.valueOf(good.getNumberInCart()));
-        holder.productName.setText(good.getGoodName());
-        holder.productDescription.setText(good.getGoodDescription());
+        holder.productName.setText(good.getGoodVariantName());
+        holder.productDescription.setText(good.getGoodVariantDescription());
         holder.add.setOnClickListener(view -> addNumberOfGoodInCart(position,holder));
         holder.subtract.setOnClickListener(view -> subtractNumberOfGoodInCart(position,holder));
 

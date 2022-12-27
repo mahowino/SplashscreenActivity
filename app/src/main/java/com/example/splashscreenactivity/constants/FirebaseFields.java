@@ -9,4 +9,5 @@ public class FirebaseFields {
     public static final String WHOLESALE_PRICE="wholesale_price";
     public static final String RETAIL_PRICE="retail_price";
     public static final String TRANSACTION_DATE="TransactionDate";
+    public static final String NUMBER = "numberInCart";
 }

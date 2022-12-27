@@ -42,9 +42,15 @@ public class MainPage extends AppCompatActivity {
     }
 
     private void viewCart() {
-        Intent intent=new Intent(getApplicationContext(),MyCart.class);
-        intent.putParcelableArrayListExtra("cart",cart);
-        startActivity(intent);
+        if (cart.size()==0){
+            Toast.makeText(this, "Cart is empty", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Intent intent=new Intent(getApplicationContext(),MyCart.class);
+            intent.putParcelableArrayListExtra("cart",cart);
+            startActivity(intent);
+        }
+
     }
 
     private void displayRecyclerView() {

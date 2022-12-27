@@ -21,6 +21,7 @@ import com.example.splashscreenactivity.models.GoodType;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -35,12 +36,13 @@ public class payment_success_screen extends AppCompatActivity {
     private Long TransactionTime;
     List<GoodType> goodTypes;
     String phoneNumber;
+    ListenerRegistration listener;
 
     @Override
     protected void onStart() {
         super.onStart();
         collectionReference= CUSTOMER_REFERENCE.document(FirebaseInit.mAuth.getUid()).collection("transactions");
-        collectionReference.addSnapshotListener((value, error) -> {
+        listener = collectionReference.addSnapshotListener((value, error) -> {
             if (error != null) {
                 Log.d("error", "Listen failed.", error);
                 return;
@@ -48,13 +50,13 @@ public class payment_success_screen extends AppCompatActivity {
 
             //get Time
 
-            for (DocumentSnapshot snapshot:value){
+            for (DocumentSnapshot snapshot : value) {
                 //check how you store transaction time in your database
 
-                Long currentTime=Long.parseLong(String.valueOf(snapshot.get(FirebaseFields.TRANSACTION_DATE)));
+                Long currentTime = Long.parseLong(String.valueOf(snapshot.get(FirebaseFields.TRANSACTION_DATE)));
 
-                int difference= currentTime.compareTo(TransactionTime);
-                if(difference>0){
+                int difference = currentTime.compareTo(TransactionTime);
+                if (difference > 0) {
                     WalletUpdated();
                 }
 
@@ -77,16 +79,38 @@ public class payment_success_screen extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        listener.remove();
+    }
+
     private void WalletUpdated(){
 
-        //generate voucher
+        listener.remove();
+                //generate voucher
         DocumentReference reference=VOUCHER_REFERENCE.document();
         FirebaseRepository.setDocument(createVoucher(), reference, new Callback() {
             @Override
             public void onSuccess(Object object) {
+
+                for (int index=0;index<goodTypes.size();index++) {
+                    DocumentReference goodsRef=reference.collection("goods").document();
+                    FirebaseRepository.setDocument(createGoodsInVoucher(index), goodsRef, new Callback() {
+                        @Override
+                        public void onSuccess(Object object) {
+
+                        }
+
+                        @Override
+                        public void onError(Object object) {
+
+                        }
+                    });
+                }
                 Intent Confirmation=new Intent(getApplicationContext(), FinalActivitySender.class);
                 Confirmation.putExtra("VoucherID",reference.getId());
-                Toast.makeText(getApplicationContext(), "Wallet successfully updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Voucher successfully generated", Toast.LENGTH_SHORT).show();
                 startActivity(Confirmation);
                 finish();
 
@@ -103,9 +127,17 @@ public class payment_success_screen extends AppCompatActivity {
 
     private Map createVoucher() {
         Map<String,Object> map=new HashMap<>();
-        map.put("goods",goodTypes);
         map.put("sender",FirebaseInit.mAuth.getCurrentUser().getPhoneNumber());
         map.put("receiver",phoneNumber);
+        return map;
+    }
+    private Map createGoodsInVoucher(int pos) {
+        Map<String,Object> map=new HashMap<>();
+        map.put(FirebaseFields.GOOD_VARIANT_NAME,goodTypes.get(pos).getGoodVariantName());
+        map.put(FirebaseFields.GOOD_VARIANT_DESCRIPTION,goodTypes.get(pos).getGoodVariantDescription());
+        map.put(FirebaseFields.NUMBER,goodTypes.get(pos).getNumberInCart());
+        map.put(FirebaseFields.RETAIL_PRICE,goodTypes.get(pos).getGoodRetailPrice());
+        map.put(FirebaseFields.WHOLESALE_PRICE,goodTypes.get(pos).getGoodWholesalePrice());
         return map;
     }
 

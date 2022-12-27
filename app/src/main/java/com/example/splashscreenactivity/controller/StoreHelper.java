@@ -27,6 +27,7 @@ public class StoreHelper {
                 Goods good=snapshotDocs.toObject(Goods.class);
                 good.setGoodId(snapshotDocs.getId());
                 good.setGoodName(snapshotDocs.getString(FirebaseFields.GOOD_NAME));
+                good.setGoodDescription(snapshotDocs.getString(FirebaseFields.GOOD_DESCRIPTION));
                 goods.add(good);
             }
             callback.onSuccess(goods);
@@ -44,6 +45,7 @@ public class StoreHelper {
             for (DocumentSnapshot snapshotDocs:snapshot){
                 GoodType goodType=new GoodType();
                 goodType.setGoodTypeId(snapshotDocs.getId());
+                goodType.setGoodVariantName(snapshotDocs.getString(FirebaseFields.GOOD_VARIANT_NAME));
                 goodType.setGoodVariantDescription(snapshotDocs.getString(FirebaseFields.GOOD_VARIANT_DESCRIPTION));
                 goodType.setGoodRetailPrice(snapshotDocs.getDouble(FirebaseFields.RETAIL_PRICE));
                good_types.add(goodType);

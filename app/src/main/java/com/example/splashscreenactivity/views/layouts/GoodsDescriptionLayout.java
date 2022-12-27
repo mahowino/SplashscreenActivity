@@ -60,7 +60,7 @@ public class GoodsDescriptionLayout {
                 String[] goodDescriptions=new String[storeGoods.size()];
 
                 for (int index=0;index<storeGoods.size();index++)
-                    goodDescriptions[index]=storeGoods.get(index).getGoodVariantDescription();
+                    goodDescriptions[index]=storeGoods.get(index).getGoodVariantName();
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(activity,
                         android.R.layout.simple_spinner_item, goodDescriptions);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -135,7 +135,7 @@ public class SendGoodsActivity extends AppCompatActivity {
                         SimpleDateFormat dateFormat=new SimpleDateFormat("yyyyMMddHHmmss");
                         String date=dateFormat.format(new Date());
                         intent.putExtra("TransactionTime",date);
-                        intent.putExtra("phone",targetPhoneNummber.getText().toString());
+                        intent.putExtra("phone",Sanitizer.toE164(targetPhoneNummber.getText().toString()));
                         ArrayList cartGoods= (ArrayList) cart.getCartGoods();
                         intent.putParcelableArrayListExtra("goods",cartGoods);
 

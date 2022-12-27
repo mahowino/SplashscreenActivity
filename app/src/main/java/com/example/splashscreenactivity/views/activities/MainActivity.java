@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.splashscreenactivity.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,9 +23,7 @@ public class MainActivity extends AppCompatActivity {
                 super.run();
                 try {
                     sleep(3000);
-                    Intent intent=new Intent(getApplicationContext(), PhoneNumberActivity.class);
-                    startActivity(intent);
-                    finish();
+                    checkIfUserIsLoggedIn();
 
                 }catch (Exception e){
                    e.printStackTrace();
@@ -33,4 +33,25 @@ public class MainActivity extends AppCompatActivity {
 
         splashscreen.start();
     }
-}
+
+    private void checkIfUserIsLoggedIn() {
+
+
+            FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+            if (user!=null){
+                Intent intent=new Intent(getApplicationContext(), MainPage.class);
+                startActivity(intent);
+                finish();
+
+            }
+            else {
+                Intent intent=new Intent(getApplicationContext(), PhoneNumberActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+
+
+        }
+
+    }

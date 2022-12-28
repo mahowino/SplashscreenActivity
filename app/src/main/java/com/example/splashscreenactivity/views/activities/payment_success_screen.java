@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.splashscreenactivity.FinalActivitySender;
 import com.example.splashscreenactivity.R;
+import com.example.splashscreenactivity.Utils.utils;
 import com.example.splashscreenactivity.constants.FirebaseFields;
 import com.example.splashscreenactivity.constants.FirebaseInit;
 import com.example.splashscreenactivity.controller.FirebaseRepository;
@@ -37,6 +38,7 @@ public class payment_success_screen extends AppCompatActivity {
     List<GoodType> goodTypes;
     String phoneNumber;
     ListenerRegistration listener;
+    String voucherCode;
 
     @Override
     protected void onStart() {
@@ -88,47 +90,65 @@ public class payment_success_screen extends AppCompatActivity {
     private void WalletUpdated(){
 
         listener.remove();
-                //generate voucher
-        DocumentReference reference=VOUCHER_REFERENCE.document();
-        FirebaseRepository.setDocument(createVoucher(), reference, new Callback() {
+        getCode();
+
+    }
+
+    private void getCode() {
+        voucherCode= utils.generateCode();
+        FirebaseRepository.checkIfCodeExists(voucherCode, new Callback() {
             @Override
             public void onSuccess(Object object) {
 
-                for (int index=0;index<goodTypes.size();index++) {
-                    DocumentReference goodsRef=reference.collection("goods").document();
-                    FirebaseRepository.setDocument(createGoodsInVoucher(index), goodsRef, new Callback() {
-                        @Override
-                        public void onSuccess(Object object) {
+                //generate voucher
+                DocumentReference reference=VOUCHER_REFERENCE.document();
+                FirebaseRepository.setDocument(createVoucher(), reference, new Callback() {
+                    @Override
+                    public void onSuccess(Object object) {
 
+                        for (int index=0;index<goodTypes.size();index++) {
+                            DocumentReference goodsRef=reference.collection("goods").document();
+                            FirebaseRepository.setDocument(createGoodsInVoucher(index), goodsRef, new Callback() {
+                                @Override
+                                public void onSuccess(Object object) {
+
+                                }
+
+                                @Override
+                                public void onError(Object object) {
+
+                                }
+                            });
                         }
+                        Intent Confirmation=new Intent(getApplicationContext(), FinalActivitySender.class);
+                        Confirmation.putExtra("VoucherID",reference.getId());
+                        Toast.makeText(getApplicationContext(), "Voucher successfully generated", Toast.LENGTH_SHORT).show();
+                        startActivity(Confirmation);
+                        finish();
 
-                        @Override
-                        public void onError(Object object) {
+                    }
 
-                        }
-                    });
-                }
-                Intent Confirmation=new Intent(getApplicationContext(), FinalActivitySender.class);
-                Confirmation.putExtra("VoucherID",reference.getId());
-                Toast.makeText(getApplicationContext(), "Voucher successfully generated", Toast.LENGTH_SHORT).show();
-                startActivity(Confirmation);
-                finish();
+                    @Override
+                    public void onError(Object object) {
+
+                        Toast.makeText(payment_success_screen.this, "Error", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
 
             @Override
             public void onError(Object object) {
-
-                Toast.makeText(payment_success_screen.this, "Error", Toast.LENGTH_SHORT).show();
+                getCode();
             }
         });
-
     }
 
     private Map createVoucher() {
         Map<String,Object> map=new HashMap<>();
         map.put("sender",FirebaseInit.mAuth.getCurrentUser().getPhoneNumber());
         map.put("receiver",phoneNumber);
+        map.put(FirebaseFields.VOUCHER_CODE,voucherCode);
         return map;
     }
     private Map createGoodsInVoucher(int pos) {

@@ -10,4 +10,5 @@ public class FirebaseFields {
     public static final String RETAIL_PRICE="retail_price";
     public static final String TRANSACTION_DATE="TransactionDate";
     public static final String NUMBER = "numberInCart";
+    public static final String VOUCHER_CODE ="voucher_code" ;
 }

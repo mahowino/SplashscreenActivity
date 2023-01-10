@@ -24,6 +24,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.ListenerRegistration;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -122,6 +123,9 @@ public class payment_success_screen extends AppCompatActivity {
                         }
                         Intent Confirmation=new Intent(getApplicationContext(), FinalActivitySender.class);
                         Confirmation.putExtra("VoucherID",voucherCode);
+                        ArrayList cartGoods= (ArrayList) goodTypes;
+                        Confirmation.putParcelableArrayListExtra("goods",cartGoods);
+
                         Toast.makeText(getApplicationContext(), "Voucher successfully generated", Toast.LENGTH_SHORT).show();
                         startActivity(Confirmation);
                         finish();

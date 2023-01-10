@@ -1,7 +1,9 @@
 package com.example.splashscreenactivity.Utils;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
@@ -9,7 +11,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import com.example.splashscreenactivity.R;
+import com.example.splashscreenactivity.models.GoodType;
 
+import java.util.List;
 import java.util.Random;
 
 public class utils {
@@ -54,4 +58,20 @@ public class utils {
         return dialog;
 
     }
+    public static void shareCode(String code, List<GoodType> goodTypeList, Activity activity) {
+        /*Create an ACTION_SEND Intent*/
+        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+        /*This will be the actual content you wish you share.*/
+        String shareBody= "Hey, use this to get goods I have send containing,";
+        for (GoodType goodType:goodTypeList)
+            shareBody+= goodType.getGoodVariantName()+" "+goodType.getNumberInCart()+" items, ";
+        shareBody += "with the code  "+code;
+        /*The type of the content is text, obviously.*/
+        intent.setType("text/plain");
+        /*Applying information Subject and Body.*/
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        /*Fire!*/
+        activity.startActivity(Intent.createChooser(intent, "which app do you want to share using"));
+    }
+
 }

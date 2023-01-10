@@ -86,7 +86,7 @@ public class MainPage extends AppCompatActivity {
                 //add store goods from DB.
 
                 CategoryAdapter adapters=new CategoryAdapter(goodsList,getApplicationContext(), (pos) -> {
-                    showFragmentDialog(R.layout.bottom_sheet_layout_store_iems);
+                    showFragmentDialog(goodsList.get(pos).getName(),R.layout.bottom_sheet_layout_store_iems);
                 });
                 categories.setAdapter(adapters);
                 categories.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false));
@@ -100,15 +100,15 @@ public class MainPage extends AppCompatActivity {
 
     }
 
-    private void showFragmentDialog(int layout) {
+    private void showFragmentDialog(String category,int layout) {
         Dialog dialog=createDialog(MainPage.this,layout);
         initializeVariables(dialog);
-        setValues();
+        setValues(category);
 
     }
 
-    private void setValues() {
-        StoreHelper.getAllGoods(new getItemsCallback() {
+    private void setValues(String categories) {
+        StoreHelper.getAllGoodsInCategory(categories,new getItemsCallback() {
             @Override
             public void onSuccess(Object object) {
                 List<Goods> goodsList=(List<Goods>)object;

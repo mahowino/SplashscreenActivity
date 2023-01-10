@@ -50,7 +50,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:23.0.8'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     implementation 'com.jakewharton.timber:timber:4.7.1'
-
+    implementation 'com.squareup.picasso:picasso:2.8'
 
 
 

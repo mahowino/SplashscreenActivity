@@ -5,15 +5,17 @@ import android.os.Parcelable;
 
 public class GoodType extends Goods implements Parcelable {
     String GoodTypeId,good_variant_name,good_description;
-    double retail_price,wholesale_price;
+    double retail_price,wholesale_price,wholesaleQuantities;
     int numberInCart;
     public GoodType(){}
+
     protected GoodType(Parcel in) {
         GoodTypeId = in.readString();
         good_variant_name = in.readString();
         good_description = in.readString();
         retail_price = in.readDouble();
         wholesale_price = in.readDouble();
+        wholesaleQuantities = in.readDouble();
         numberInCart = in.readInt();
     }
 
@@ -28,6 +30,18 @@ public class GoodType extends Goods implements Parcelable {
             return new GoodType[size];
         }
     };
+
+
+
+    public double getWholesaleQuantities() {
+        return wholesaleQuantities;
+    }
+
+    public void setWholesaleQuantities(double wholesaleQuantities) {
+        this.wholesaleQuantities = wholesaleQuantities;
+    }
+
+
 
     public int getNumberInCart() {
         return numberInCart;
@@ -77,6 +91,7 @@ public class GoodType extends Goods implements Parcelable {
         this.retail_price = goodRetailPrice;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -89,6 +104,7 @@ public class GoodType extends Goods implements Parcelable {
         parcel.writeString(good_description);
         parcel.writeDouble(retail_price);
         parcel.writeDouble(wholesale_price);
+        parcel.writeDouble(wholesaleQuantities);
         parcel.writeInt(numberInCart);
     }
 }

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.splashscreenactivity.R;
 import com.example.splashscreenactivity.controller.FirebaseAuth;
 import com.example.splashscreenactivity.models.Customer;
+import com.example.splashscreenactivity.views.layouts.LoadingDialog;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 public class PhoneNumberActivity extends AppCompatActivity{
     EditText phone;
     Button submit;
+    LoadingDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class PhoneNumberActivity extends AppCompatActivity{
     }
 
     private void login() {
+        dialog.startLoadingAlertDialog();
         String phoneNumber=phone.getText().toString().trim();
         if (phoneIsValid(phoneNumber)){
             Customer customer=new Customer();
@@ -79,5 +82,6 @@ public class PhoneNumberActivity extends AppCompatActivity{
     private void initViews() {
         phone=findViewById(R.id.editTextPhone);
         submit=findViewById(R.id.btnSignUp);
+        dialog=new LoadingDialog(this);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.splashscreenactivity.views.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +37,32 @@ public class MyCart extends AppCompatActivity {
         initViews();
         setAdapter();
         setListeners();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        // Create an alert dialog builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+// Set the message and title of the dialog
+        builder.setMessage("Going back will clear your cart. Are you sure you want to continue?")
+                .setTitle("Warning");
+
+// Set the positive and negative buttons of the dialog
+        builder.setPositiveButton("Yes", (dialog, id) -> {
+            // User confirmed that they want to go back and clear the cart
+            // Clear the cart and navigate back to the previous activity
+            super.onBackPressed();
+            finish();
+        });
+        builder.setNegativeButton("No", (dialog, id) -> {
+            // User cancelled, do nothing
+        });
+
+// Create and show the alert dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void setListeners() {

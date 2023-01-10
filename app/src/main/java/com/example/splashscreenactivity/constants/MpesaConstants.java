@@ -8,16 +8,16 @@ public class MpesaConstants {
 
         public static final int WRITE_TIMEOUT = 60 * 1000;
 
-        public static final String BASE_URL = "https://sandbox.safaricom.co.ke/";
+        public static final String BASE_URL = "https://api.safaricom.co.ke/";
 
 
-        public static final String BUSINESS_SHORT_CODE = "174379";
-        public static final String PASSKEY = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
-        public static final String TRANSACTION_TYPE = "CustomerPayBillOnline";
-        public static final String PARTYB = "174379"; //same as business shortcode above
+        public static final String BUSINESS_SHORT_CODE = "7483499";
+        public static final String PASSKEY = "eba2c28ef6c07b569925fc87ae64258c3dba28b76e02caa8a11811cc5e27cc85";
+        public static final String TRANSACTION_TYPE = "CustomerBuyGoodsOnline";
+        public static final String PARTYB = "5485689"; //same as business shortcode above
         public static final String CALLBACKURL = "https://us-central1-bigfamily-b7c30.cloudfunctions.net/callbackUrl?userid="+FirebaseInit.mAuth.getUid();
-        public static final String DARAJA_CONSUMER_KEY="4rxHIMX7lSI49gWXxIida5BABgKD1zs4";
-        public static final String DARAJA_CONSUMER_SECRET="nf8XLBahzk5guEh7";
+        public static final String DARAJA_CONSUMER_KEY="C91yWYLAoL7ii9FFLzLyclNCcFLWSKIl";
+        public static final String DARAJA_CONSUMER_SECRET="CwE4E2JFQzugnMdQ";
 
         //You should get these values from the earlier post Part 1
 

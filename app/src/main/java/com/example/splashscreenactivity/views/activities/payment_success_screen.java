@@ -107,7 +107,7 @@ public class payment_success_screen extends AppCompatActivity {
                     public void onSuccess(Object object) {
 
                         for (int index=0;index<goodTypes.size();index++) {
-                            DocumentReference goodsRef=reference.collection("goods").document();
+                            DocumentReference goodsRef=reference.collection("goods").document(goodTypes.get(index).getGoodTypeId());
                             FirebaseRepository.setDocument(createGoodsInVoucher(index), goodsRef, new Callback() {
                                 @Override
                                 public void onSuccess(Object object) {
@@ -121,7 +121,7 @@ public class payment_success_screen extends AppCompatActivity {
                             });
                         }
                         Intent Confirmation=new Intent(getApplicationContext(), FinalActivitySender.class);
-                        Confirmation.putExtra("VoucherID",reference.getId());
+                        Confirmation.putExtra("VoucherID",voucherCode);
                         Toast.makeText(getApplicationContext(), "Voucher successfully generated", Toast.LENGTH_SHORT).show();
                         startActivity(Confirmation);
                         finish();
@@ -146,8 +146,8 @@ public class payment_success_screen extends AppCompatActivity {
 
     private Map createVoucher() {
         Map<String,Object> map=new HashMap<>();
-        map.put("sender",FirebaseInit.mAuth.getCurrentUser().getPhoneNumber());
-        map.put("receiver",phoneNumber);
+        map.put(FirebaseFields.SENDER,FirebaseInit.mAuth.getCurrentUser().getPhoneNumber());
+        map.put(FirebaseFields.RECEIVER,phoneNumber);
         map.put(FirebaseFields.VOUCHER_CODE,voucherCode);
         return map;
     }
@@ -158,6 +158,7 @@ public class payment_success_screen extends AppCompatActivity {
         map.put(FirebaseFields.NUMBER,goodTypes.get(pos).getNumberInCart());
         map.put(FirebaseFields.RETAIL_PRICE,goodTypes.get(pos).getGoodRetailPrice());
         map.put(FirebaseFields.WHOLESALE_PRICE,goodTypes.get(pos).getGoodWholesalePrice());
+        map.put(FirebaseFields.WHOLESALE_QUANTITIES,goodTypes.get(pos).getWholesaleQuantities());
         return map;
     }
 

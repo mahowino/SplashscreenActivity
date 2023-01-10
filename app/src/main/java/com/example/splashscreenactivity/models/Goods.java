@@ -1,8 +1,15 @@
 package com.example.splashscreenactivity.models;
 
 public class Goods {
-    String goodId,good_name,good_description;
+    String goodId,good_name,good_description,category;
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public String getGoodId() {
         return goodId;

@@ -18,6 +18,7 @@ import com.example.splashscreenactivity.controller.DarajaApiClient;
 import com.example.splashscreenactivity.models.AccessToken;
 import com.example.splashscreenactivity.models.Cart;
 import com.example.splashscreenactivity.models.STKPush;
+import com.example.splashscreenactivity.views.layouts.LoadingDialog;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,9 +26,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,6 +52,7 @@ public class SendGoodsActivity extends AppCompatActivity {
     EditText payingPhoneNumber,targetPhoneNummber;
     Cart cart;
     CartHelper cartHelper;
+    LoadingDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,10 +76,20 @@ public class SendGoodsActivity extends AppCompatActivity {
         mApiClient.setIsDebug(true); //Set True to enable logging, false to disable.
         cart=getIntent().getParcelableExtra("cart");
         number=getIntent().getStringExtra("number");
+        dialog=new LoadingDialog(this);
 
         cartHelper=new CartHelper(cart);
         payingPhoneNumber.setText(number);
     }
+
+
+    private void validate() {
+        if (TextUtils.isEmpty(payingPhoneNumber.getText().toString())) {payingPhoneNumber.setError("paying number is required"); dialog.dismissDialog();return;}
+        if (TextUtils.isEmpty(targetPhoneNummber.getText().toString())) {targetPhoneNummber.setError("target number is required");dialog.dismissDialog();return;}
+
+
+    }
+
 
     private void sendPrompt() {
         String phone_number = payingPhoneNumber.getText().toString();
@@ -90,8 +104,10 @@ public class SendGoodsActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<AccessToken> call, @NonNull Response<AccessToken> response) {
 
                 if (response.isSuccessful()) {
+                    Toast.makeText(SendGoodsActivity.this, ""+response.body().accessToken, Toast.LENGTH_SHORT).show();
                     mApiClient.setAuthToken(response.body().accessToken);
 
+                    //Toast.makeText(SendGoodsActivity.this, ""+response.body().accessToken, Toast.LENGTH_SHORT).show();
                 }
             }
 

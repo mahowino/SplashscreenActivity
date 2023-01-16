@@ -51,7 +51,7 @@ public class CartHelper {
     }
 
     public double getServiceCharge(){
-        return calculateCartValue()*RATE;
+        return MpesaHelper.getCharges(calculateCartValue());
     }
     public double getTotalCharge(){
         return getServiceCharge()+calculateCartValue();

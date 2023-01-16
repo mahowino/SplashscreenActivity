@@ -22,6 +22,7 @@ import com.example.splashscreenactivity.models.Categories;
 import com.example.splashscreenactivity.models.GoodType;
 import com.example.splashscreenactivity.models.Goods;
 import com.example.splashscreenactivity.views.layouts.GoodsDescriptionLayout;
+import com.example.splashscreenactivity.views.layouts.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +33,18 @@ public class MainPage extends AppCompatActivity {
     RecyclerView recyclerView,categories,expandedCategories;
     ArrayList<GoodType> cart;
     ImageBadgeView badgeView;
+    LoadingDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
+
+
         init_views();
         displayRecyclerView();
         setListeners();
+
     }
 
     private void setListeners() {
@@ -72,6 +77,7 @@ public class MainPage extends AppCompatActivity {
                 });
                 recyclerView.setAdapter(adapters);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                dialog.dismissDialog();
             }
 
             @Override
@@ -141,6 +147,8 @@ public class MainPage extends AppCompatActivity {
         badgeView=findViewById(R.id.btnShowCart);
         categories=findViewById(R.id.categoryRecyclerView);
         badgeView.clearBadge();
+        dialog=new LoadingDialog(this);
+        dialog.startLoadingAlertDialog();
     }
 
     @Override

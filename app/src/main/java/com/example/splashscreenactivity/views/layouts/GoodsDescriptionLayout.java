@@ -88,6 +88,7 @@ public class GoodsDescriptionLayout {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 selectedIndex=position;
+                goodRetailPrice.setText(storeGoods.get(position).getGoodRetailPrice()+" per item");
             }
 
             @Override

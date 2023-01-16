@@ -1,21 +1,27 @@
 package com.example.splashscreenactivity.Adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.splashscreenactivity.R;
 import com.example.splashscreenactivity.controller.CartHelper;
+import com.example.splashscreenactivity.controller.StoreHelper;
+import com.example.splashscreenactivity.interfaces.getItemsCallback;
 import com.example.splashscreenactivity.interfaces.onCardItemClick;
 import com.example.splashscreenactivity.models.Cart;
 import com.example.splashscreenactivity.models.GoodType;
 import com.example.splashscreenactivity.models.Goods;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -46,6 +52,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull CartAdapter.ViewHolder holder, int position) {
         GoodType good=cart.getCartGoods().get(position);
 
+        StoreHelper.getGoodImages(good.getGoodName(), new getItemsCallback() {
+            @Override
+            public void onSuccess(Object object) {
+                Uri uri=(Uri)object;
+                Picasso.get().load(uri) .resize(100, 100)
+                        .centerCrop() .error( R.drawable.bag )
+                        .placeholder( R.drawable.prograss_animator ).into(holder.productImageView);
+            }
+
+            @Override
+            public void onError() {
+                Toast.makeText(mContext, "error loading images", Toast.LENGTH_SHORT).show();
+            }
+        });
         holder.productNumber.setText(String.valueOf(good.getNumberInCart()));
         holder.productName.setText(good.getGoodVariantName());
         holder.productDescription.setText(good.getGoodVariantDescription());
@@ -91,6 +111,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView productName,productDescription,productNumber;
         Button add,subtract;
+        ImageView productImageView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             productName=itemView.findViewById(R.id.txtGoodNameCart);
@@ -98,6 +119,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             add=itemView.findViewById(R.id.btnIncreaseItemCount);
             subtract=itemView.findViewById(R.id.btnReduceItemCount);
             productNumber=itemView.findViewById(R.id.txtNumberInCart);
+            productImageView=itemView.findViewById(R.id.productImage);
         }
     }
 }

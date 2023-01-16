@@ -1,6 +1,9 @@
 package com.example.splashscreenactivity.controller;
 
+import static com.example.splashscreenactivity.constants.FirebaseInit.storage;
+
 import android.hardware.lights.LightsManager;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
@@ -16,6 +19,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +27,7 @@ import java.util.List;
 public class StoreHelper {
 
     public static void getAllGoods(getItemsCallback callback) {
-        FirebaseCollections.STORE_REFERENCE.get().addOnSuccessListener(snapshot -> {
+        FirebaseCollections.STORE_REFERENCE.limit(4).get().addOnSuccessListener(snapshot -> {
             List<Goods> goods=new ArrayList<>();
             for (DocumentSnapshot snapshotDocs:snapshot){
                 Goods good=snapshotDocs.toObject(Goods.class);
@@ -55,6 +59,24 @@ public class StoreHelper {
         }).addOnFailureListener(e -> {
             callback.onError();
         });
+    }
+    public static void getCategoryImages(String categoryName,getItemsCallback callback){
+        StorageReference pathReference = FirebaseInit
+                .reference
+                .child("categories/"+categoryName+".jpg");
+
+        pathReference.getDownloadUrl().addOnSuccessListener(callback::onSuccess)
+                .addOnFailureListener(Throwable::printStackTrace);
+
+    }
+    public static void getGoodImages(String goodName,getItemsCallback callback){
+        StorageReference pathReference = FirebaseInit
+                .reference
+                .child("goods/"+goodName+".jpg");
+
+        pathReference.getDownloadUrl().addOnSuccessListener(callback::onSuccess)
+                .addOnFailureListener(Throwable::printStackTrace);
+
     }
     public static void getAllGoodsCategories(getItemsCallback callback) {
         FirebaseCollections.CATEGORY_REFERENCE.get().addOnSuccessListener(snapshot -> {

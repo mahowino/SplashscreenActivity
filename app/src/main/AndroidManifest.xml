@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.splashscreenactivity">
+    package="online.kenya.mvitu">
 
     <application
         android:allowBackup="true"
@@ -14,31 +14,31 @@
         android:theme="@style/Theme.SplashscreenActivity"
         tools:targetApi="31">
         <activity
-            android:name=".FinalActivitySender"
+            android:name="online.kenya.mvitu.FinalActivitySender"
             android:exported="false" />
         <activity
-            android:name=".views.activities.SendingSuccess"
+            android:name="online.kenya.mvitu.views.activities.SendingSuccess"
             android:exported="false" />
         <activity
-            android:name=".views.activities.SendGoodsActivity"
+            android:name="online.kenya.mvitu.views.activities.SendGoodsActivity"
             android:exported="false" />
         <activity
-            android:name=".views.activities.payment_success_screen"
+            android:name="online.kenya.mvitu.views.activities.payment_success_screen"
             android:exported="false" />
         <activity
-            android:name=".views.activities.MyCart"
+            android:name="online.kenya.mvitu.views.activities.MyCart"
             android:exported="false" />
         <activity
-            android:name=".views.activities.MainPage"
+            android:name="online.kenya.mvitu.views.activities.MainPage"
             android:exported="false" />
         <activity
-            android:name=".views.activities.verifyOTP"
+            android:name="online.kenya.mvitu.views.activities.verifyOTP"
             android:exported="false" />
         <activity
-            android:name=".views.activities.PhoneNumberActivity"
+            android:name="online.kenya.mvitu.views.activities.PhoneNumberActivity"
             android:exported="false" />
         <activity
-            android:name=".views.activities.MainActivity"
+            android:name="online.kenya.mvitu.views.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

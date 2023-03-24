@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:4680311400:android:5191f47fc79273855a11dd",
         "android_client_info": {
-          "package_name": "com.example.splashscreenactivity"
+          "package_name": "online.kenya.mvitu"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "4680311400-d7d9fdltp652gvkjr2jig0vfa7u0orkg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.splashscreenactivity",
+            "package_name": "online.kenya.mvitu",
             "certificate_hash": "cf0115b6b9bc8c2ea3ff23f6d666dd62aaeed6b6"
           }
         },

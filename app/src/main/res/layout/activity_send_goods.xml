@@ -42,7 +42,7 @@
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter phone number to receive prompt"
+            android:text="Enter phone number to pay"
             android:textColor="@color/black" />
 
         <EditText
